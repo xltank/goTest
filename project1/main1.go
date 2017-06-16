@@ -3,9 +3,12 @@ package main
 
 import (
 	"fmt"
+    "goTest/project1/common"
 )
 
 func main() {
+    common.Print("asdf")
+
 	arr := [...]int{1, 2, 3, 4, 5}
 	s := arr[0:3]
 	s = append(s, 6)
