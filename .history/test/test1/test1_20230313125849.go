@@ -1,0 +1,26 @@
+package main
+
+import "fmt"
+
+func main() {
+	a := Dog{Animal: Animal{
+		sound: "woof"},
+	}
+	fmt.Println(a.Shout())
+
+	m := new(map[string]string)
+	mm := *m
+	mm["a"] = "aaa"
+}
+
+type Animal struct {
+	sound string
+}
+
+func (animal *Animal) Shout() string {
+	return animal.sound
+}
+
+type Dog struct {
+	Animal
+}
