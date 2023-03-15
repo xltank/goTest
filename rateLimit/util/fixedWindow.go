@@ -1,3 +1,7 @@
+/*
+	Fixed window rate limiter.
+*/
+
 package util
 
 import (
