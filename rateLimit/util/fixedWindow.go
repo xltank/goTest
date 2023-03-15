@@ -16,8 +16,8 @@ type Fixed struct {
 	start  time.Time
 }
 
-func NewFixed(limit uint64, period uint64) Fixed {
-	return Fixed{
+func NewFixed(limit uint64, period uint64) *Fixed {
+	return &Fixed{
 		Limit:  limit,
 		Period: period,
 		Count:  0,

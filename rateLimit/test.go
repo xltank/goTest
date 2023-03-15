@@ -8,12 +8,8 @@ import (
 )
 
 func main() {
-	testFixed()
-}
-
-func testFixed() {
 	t := time.NewTicker(time.Millisecond * 100)
-	limiter := util.NewFixed(1000, 10)
+	var limiter util.Limiter = testFixed()
 	for now := range t.C {
 		fmt.Println("---")
 		rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -22,4 +18,8 @@ func testFixed() {
 		fmt.Println(limiter.Get(uint64(n)))
 	}
 	defer t.Stop()
+}
+
+func testFixed() util.Limiter {
+	return util.NewFixed(1000, 10)
 }

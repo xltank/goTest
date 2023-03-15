@@ -1,5 +1,5 @@
 package util
 
 type Limiter interface {
-	Get(n int) bool
+	Get(n uint64) bool
 }
