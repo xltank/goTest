@@ -25,7 +25,7 @@ func NewFixed(limit int, period int) *Fixed {
 	}
 }
 
-func (f *Fixed) Get(time.Time) bool {
+func (f *Fixed) Get(t time.Time) bool {
 	now := time.Now()
 	bound := f.start.Add(time.Duration(f.Period) * time.Second)
 	if now.After(bound) {

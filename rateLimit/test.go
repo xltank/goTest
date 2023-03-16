@@ -9,7 +9,8 @@ import (
 
 func main() {
 	// test1(util.NewFixed(1000, 10))
-	test2(util.NewSliding(1000, 10))
+	// test2(util.NewSliding(1000, 10))
+	test2(util.NewLeaky(1000, 100))
 }
 
 /* func test1(limiter util.Limiter) {
