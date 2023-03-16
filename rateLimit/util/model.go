@@ -1,5 +1,7 @@
 package util
 
+import "time"
+
 type Limiter interface {
-	Get(n uint64) bool
+	Get(t time.Time) bool
 }
