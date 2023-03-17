@@ -6,32 +6,32 @@ import (
 	"time"
 )
 
-type Leaky struct {
-	Cap        int       // capacity of bucket
-	Speed      int       // leaking(consuming) speed, per second
-	tokenCount int       // count of current token in bucket
-	lastTime   time.Time //
+type LeakyBucket struct {
+	Cap      int       // capacity of bucket
+	Speed    int       // leaking(consuming) speed, per second
+	count    int       // count of current req in bucket
+	lastTime time.Time //
 }
 
-func (l *Leaky) Get(t time.Time) bool {
+func (l *LeakyBucket) Get(t time.Time) bool {
 	ellapsed := int(time.Since(l.lastTime).Seconds())
 	if ellapsed >= 1 {
-		l.tokenCount = int(math.Min(float64(l.Cap), float64(l.tokenCount+l.Speed*int(ellapsed))))
+		l.count = int(math.Max(0, math.Min(float64(l.Cap), float64(l.count-l.Speed*int(ellapsed)))))
 		l.lastTime = time.Now()
 	}
-	fmt.Printf("%v / %v:", l.tokenCount, l.Cap)
-	if l.tokenCount == 0 {
+	fmt.Printf("%v / %v:", l.count, l.Cap)
+	if l.count >= l.Cap {
 		return false
 	}
-	l.tokenCount--
+	l.count++
 	return true
 }
 
-func NewLeaky(cap, speed int) *Leaky {
-	return &Leaky{
-		Cap:        cap,
-		Speed:      speed,
-		tokenCount: cap,
-		lastTime:   time.Now(),
+func NewLeakyBucket(cap, speed int) *LeakyBucket {
+	return &LeakyBucket{
+		Cap:      cap,
+		Speed:    speed,
+		count:    0,
+		lastTime: time.Now(),
 	}
 }
