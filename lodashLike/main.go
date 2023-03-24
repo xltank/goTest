@@ -26,16 +26,23 @@ func main() {
 	fmt.Println("Compact2()", slice.Compact2([]int{0, 1, 3, 5, 0.0}))
 
 	persons := []Person{
-		{Name: "A", Age: 12.1},
-		{Name: "B", Age: 18.2},
-		{Name: "C", Age: 18.11111},
+		{Name: "A", Age: 12},
+		{Name: "AA", Age: 13},
+		{Name: "B", Age: 18},
+		{Name: "B", Age: 18},
 	}
 	fmt.Println("SumBy()", slice.SumBy(persons, "Age"))
+
+	fmt.Println("Uniq()", slice.Uniq(persons))
+
+	fmt.Println("FindFirstIndex()", slice.FindFirstIndex(persons, Person{"B", 18}))
+
+	fmt.Println("Uniq()", slice.Uniq(persons))
 }
 
 type Int64 int64
 
 type Person struct {
 	Name string
-	Age  float32
+	Age  int
 }

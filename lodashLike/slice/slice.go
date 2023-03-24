@@ -37,17 +37,14 @@ func SumBy[T any](s []T, field string) (r float64) {
 		return 0
 	}
 	itemType := reflect.ValueOf(s[0]).Type()
-	// fmt.Println("reFirst", itemType)
 	if itemType.Kind() != reflect.Struct {
 		return 0
 	}
 	for _, v := range s {
-		// fmt.Println("re.Index(i)", v)
 		reField := reflect.ValueOf(v).FieldByName(field)
 		if !reField.IsValid() {
 			return 0
 		}
-		// fmt.Println("reItem", reField, reField.Type().Kind())
 		value := float64(0)
 		switch reField.Type().Kind() {
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
@@ -98,6 +95,24 @@ func Compact[T comparable](s []T) (r []T) {
 	return r
 }
 
-// func Uniq[T comparable](s []T) (r []T) {
+func FindFirstIndex[T comparable](s []T, item T) (index int) {
+	index = -1
+	for i, v := range s {
+		if item == v {
+			return i
+		}
+	}
+	return
+}
 
-// }
+func Uniq[T comparable](s []T) (r []T) {
+	r = make([]T, 0)
+	for _, v := range s {
+		index := FindFirstIndex(r, v)
+		if index == -1 {
+			r = append(r, v)
+		}
+	}
+
+	return
+}
