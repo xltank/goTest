@@ -11,6 +11,14 @@
       "mode": "auto",
       "program": "${fileDirname}",
       "env": {"GO_ENV": "local"}
+    },
+    {
+      "name": "lodashLike",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "../goTest/lodashLike/main.go",
+      "env": {"GO_ENV": "local"}
     }
   ]
 }
