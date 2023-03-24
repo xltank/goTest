@@ -23,9 +23,12 @@ func main() {
 	fmt.Println("Compact()", slice.Compact([]int{0, 1, 3, 5, 0.0}))
 	fmt.Println("Compact()", slice.Compact([]string{"a", "b", "", "ccc", "阿萨德飞", ""}))
 
+	fmt.Println("Compact2()", slice.Compact2([]int{0, 1, 3, 5, 0.0}))
+
 	persons := []Person{
 		{Name: "A", Age: 12.1},
 		{Name: "B", Age: 18.2},
+		{Name: "C", Age: 18.11111},
 	}
 	fmt.Println("SumBy()", slice.SumBy(persons, "Age"))
 }

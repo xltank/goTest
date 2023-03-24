@@ -31,6 +31,7 @@ func Sum[T Num](x ...T) T {
 	return z
 }
 
+// low efficient
 func SumBy(s any, field string) (r float64) {
 	fmt.Println("----- SumBy")
 	re := reflect.ValueOf(s)
@@ -73,32 +74,18 @@ func Map[T, F any](s []T, f func(t T) F) (r []F) {
 	return r
 }
 
-// 无法实现Compact对于any的版本，自定义类型太多了，无法枚举。
-func _Compact[T any](s []T) (r []T) {
-	r = make([]T, 0)
-	// var zero T
-	// for i, v := range s {
-	// 	if zero == v {
-	// 		r = append(r, s[i])
-	// 	}
-	// }
-	for _, v := range s {
-		switch a := any(v).(type) {
-		case int, int8, int16, int32, int64:
-			if a == 0 {
-				continue
-			}
-		case float32, float64:
-			if a == 0 {
-				continue
-			}
-		case string:
-			if a == "" {
-				continue
-			}
-		}
-		r = append(r, v)
+func Compact2[T any](s []T) (r []T) {
+	fmt.Println("----- Compact2")
+	if len(s) == 0 {
+		return s
 	}
+	r = make([]T, 0)
+	// empty := new(T)
+	/* for _, v := range s {
+		if *empty != v {
+			r = append(r, v)
+		}
+	} */
 
 	return r
 }
@@ -114,3 +101,7 @@ func Compact[T comparable](s []T) (r []T) {
 	}
 	return r
 }
+
+// func Uniq[T comparable](s []T) (r []T) {
+
+// }
