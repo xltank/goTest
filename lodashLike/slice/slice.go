@@ -31,27 +31,23 @@ func Sum[T Num](x ...T) T {
 	return z
 }
 
-// low efficient
-func SumBy(s any, field string) (r float64) {
+func SumBy[T any](s []T, field string) (r float64) {
 	fmt.Println("----- SumBy")
-	re := reflect.ValueOf(s)
-	if re.Type().Kind() != reflect.Slice {
+	if len(s) == 0 {
 		return 0
 	}
-	if re.Len() == 0 {
-		return 0
-	}
-	// fmt.Println("re", re.Type())
-	reFirst := re.Index(0)
-	itemType := reFirst.Type()
+	itemType := reflect.ValueOf(s[0]).Type()
 	// fmt.Println("reFirst", itemType)
 	if itemType.Kind() != reflect.Struct {
 		return 0
 	}
-	for i := 0; i < re.Len(); i++ {
-		fmt.Println("re.Index(i)", re.Index(i))
-		reField := re.Index(i).FieldByName(field)
-		fmt.Println("reItem", reField, reField.Type().Kind())
+	for _, v := range s {
+		// fmt.Println("re.Index(i)", v)
+		reField := reflect.ValueOf(v).FieldByName(field)
+		if !reField.IsValid() {
+			return 0
+		}
+		// fmt.Println("reItem", reField, reField.Type().Kind())
 		value := float64(0)
 		switch reField.Type().Kind() {
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
